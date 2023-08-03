@@ -1,95 +1,68 @@
-import Image from 'next/image'
+"use client"
+
+import { useState, useEffect } from 'react';
 import styles from './page.module.css'
+import {Box, TextField, Grid} from '@mui/material'
+import InputAdornment from '@mui/material/InputAdornment';
+import SearchIcon from '@mui/icons-material/Search';
+import TodoItem from './components/TodoItem'
+import Header from './components/Header';
+
 
 export default function Home() {
+
+  const [data, setData] = useState([])
+  const [viewingCompleted, setViewingCompleted] = useState(false) 
+
+
+useEffect(()=> {
+  const grabData = async() => {
+    const res = await (await fetch('https://jsonplaceholder.typicode.com/users/1/todos')).json()
+    setData(res)
+    console.log(res)
+  }
+  grabData()
+}, [])
+  
+
+
+
   return (
+    <Box>
+      <Header setViewingCompleted={setViewingCompleted}/>
+
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+      <Box>
+        <TextField variant='outlined' fullWidth label='Search ToDo`s' sx={{background: 'white', text: 'white'}}
+        
+        InputProps={{
+          endAdornment: <InputAdornment><SearchIcon/></InputAdornment>
+        }}
         />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+        {viewingCompleted ? <>
+        <Grid>
+        { data.length && data.map((todo)=>{
+            if(todo.completed) return (
+            <Grid item key={todo.title}>
+              <TodoItem item={todo} />
+            </Grid>
+            )
+            })}
+        </Grid>
+        </> : <>
+        <Grid>
+          { data.length && data.map((todo)=>{
+            if(!todo.completed) return (
+            <Grid item key={todo.title}>
+              <TodoItem item={todo} />
+            </Grid>
+            )
+            })}
+        </Grid>
+        </>}
+        
+      </Box>
     </main>
+    </Box>
   )
 }

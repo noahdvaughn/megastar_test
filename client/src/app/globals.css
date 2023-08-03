@@ -99,6 +99,22 @@ a {
   color: inherit;
   text-decoration: none;
 }
+.Header{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  width: 100vw;
+  text-align: center;
+  background-color: #171717;
+  top: 0;
+  position: relative
+
+}
+.openButton:hover{
+  text-decoration: 6px solid white underline;
+}
+.openButton{
+  cursor: pointer;
+}
 
 @media (prefers-color-scheme: dark) {
   html {
