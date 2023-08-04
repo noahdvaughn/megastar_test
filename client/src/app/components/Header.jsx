@@ -12,8 +12,12 @@ const Header = ({setViewingCompleted}) => {
             <MoreHorizIcon sx={{fontSize: '3rem'}}/>
         </Box>
         <Box sx={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
-            <h3 className='openButton' onClick={()=> setViewingCompleted(false)}>Open</h3>
-            <h3 className='openButton' onClick={()=> setViewingCompleted(true)}>Closed</h3>
+          <Box className='openButton'>
+            <h3  onClick={()=> setViewingCompleted(false)}>Open</h3>
+          </Box>
+          <Box className='openButton'>
+            <h3  onClick={()=> setViewingCompleted(true)}>Closed</h3>
+          </Box>
         </Box>
 
     </Box>
