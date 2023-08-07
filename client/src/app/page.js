@@ -72,7 +72,7 @@ useEffect(()=> {
       <Header setViewingCompleted={setViewingCompleted} viewingComplete={viewingCompleted}/>
         <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
 
-        <TextField variant='outlined' label="Search Todo's" sx={{background: '#1f222e', width: '90vw', borderRadius: '1rem', marginTop: '1rem', input: {color: 'white'} }}
+        <TextField variant='outlined' label="Search Todo's" sx={{background: '#1f222e', width: '90vw', borderRadius: '1rem', marginTop: '1rem', input: {color: 'white'}, "& fieldset": { border: 'none' } }}
         onChange={onChange}
         onSubmit={searchFilter}
         className='search'
