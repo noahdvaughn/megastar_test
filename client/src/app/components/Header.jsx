@@ -13,18 +13,13 @@ const Header = ({setViewingCompleted, viewingComplete}) => {
             <MoreHorizIcon sx={{fontSize: '3rem', mr: '1rem'}}/>
         </Box>
         <Box sx={{display: 'flex', justifyContent: 'space-around', alignItems: 'center', mt: '1.5rem'}}>
-
           <Box  className={viewingComplete ? 'openButton' : 'underline'}>
             <h3  onClick={()=> setViewingCompleted(false)}>Open</h3>
           </Box>
-
           <Box  className={viewingComplete ? 'underline' : 'openButton'}>
             <h3  onClick={()=> setViewingCompleted(true)}>Closed</h3>
           </Box>
         </Box>
-        
-
-
     </Box>
   )
 }

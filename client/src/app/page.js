@@ -1,46 +1,34 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import {Box, TextField, Grid, Slide} from '@mui/material'
-import InputAdornment from '@mui/material/InputAdornment';
-import SearchIcon from '@mui/icons-material/Search';
+import {Box, TextField, Grid, Modal, InputAdornment} from '@mui/material'
+
+
 import TodoItem from './components/TodoItem'
 import Header from './components/Header';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import Modal from '@mui/material/Modal';
 import AddTodoModal from './components/AddTodoModal';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import SearchIcon from '@mui/icons-material/Search';
 import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
-
-
-
 
 export default function Home() {
 
   const [data, setData] = useState([])
   const [viewingCompleted, setViewingCompleted] = useState(false) 
   const [modalOpen, setModalOpen] = useState(false)
-  const [anchorEl, setAnchorEl] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [originalData, setOriginalData] = useState([])
   const [modalClass, setModalClass] = useState('slideUp')
 
-  const open = Boolean(anchorEl);
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
   const handleModalClose = () => {
     setModalClass('slideDown')
    setTimeout(() => {setModalOpen(false), setModalClass('slideUp')}, 300 )
   }
-
-  
   const onChange = (event) => {
     setSearchQuery(event.target.value)
   }
   const searchFilter = () => {
     let filteredArray = []
-    console.log(searchQuery)
 
     for (let i = 0; i < originalData.length; i++){
       if (originalData[i].title.includes(searchQuery)){
@@ -51,8 +39,6 @@ export default function Home() {
       }
     }
     setData(filteredArray)
-    console.log(filteredArray)
-
   }
 
 useEffect(()=> {
@@ -72,7 +58,9 @@ useEffect(()=> {
       <Header setViewingCompleted={setViewingCompleted} viewingComplete={viewingCompleted}/>
         <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
 
-        <TextField variant='outlined' label="Search Todo's" sx={{background: '#1f222e', width: '90vw', borderRadius: '1rem', marginTop: '1rem', input: {color: 'white'}, "& fieldset": { border: 'none' } }}
+        <TextField variant='outlined' 
+        label="Search Todo's" 
+        sx={{background: '#1f222e', width: '90vw', borderRadius: '1rem', marginTop: '1rem', input: {color: 'white'}, "& fieldset": { border: 'none' } }}
         onChange={onChange}
         onSubmit={searchFilter}
         className='search'
@@ -88,47 +76,42 @@ useEffect(()=> {
           }
         }}
         />
-        
         <Box className='line'></Box>
         </Box>
 
         <Box sx={{overflowY: 'scroll'}}>
 
-        {viewingCompleted ? <>
+        {viewingCompleted ? 
+
         <Grid sx={{overflow: 'scroll', overflowY: 'scroll', height: '70vh'}}>
         { data.length && data.map((todo)=>{
             if(todo.completed) return (
             <Grid item key={todo.title} >
               <TodoItem item={todo} />
             </Grid>
-            )
-            })}
+            )})}
         </Grid>
-        </> : <>
+         : 
         <Grid sx={{overflow: 'scroll', overflowY: 'scroll', height: '70vh'}}>
           { data.length && data.map((todo)=>{
             if(!todo.completed) return (
             <Grid item key={todo.title}>
               <TodoItem item={todo} setData={setData} data={data}/>
             </Grid>
-            )
-            })}
+            )})}
         </Grid>
-        </>}
+        }
         
       </Box>
+      <AddCircleIcon sx={{fontSize: '5rem', position: 'fixed', right: 0, bottom: 0, zIndex: 1}} onClick={()=> setModalOpen(true)}/>     
 
-      <AddCircleIcon sx={{fontSize: '5rem', position: 'fixed', right: 0, bottom: 0, zIndex: 1}} onClick={()=> setModalOpen(true)}/>
-      
+
       <Modal 
       open={modalOpen}
       onClose={handleModalClose}
         className={modalClass}>
         <AddTodoModal data={data} setData={setData} handleModalClose={handleModalClose}/>
-
-      </Modal>
-
-            
+      </Modal>           
     </Box>
   )
 }
