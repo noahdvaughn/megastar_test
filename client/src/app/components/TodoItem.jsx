@@ -88,6 +88,9 @@ const handleSubmit = (id) => {
         id="basic-menu"
         anchorEl={anchorEl}
 
+        sx={{"& .MuiMenu-paper": 
+        { backgroundColor: "black", color: 'white' }}}
+
 
         open={open}
         onClose={handleClose}
