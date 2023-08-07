@@ -1,8 +1,13 @@
 import React, {useState} from 'react'
 import {Box, FormControl, TextField, Select, Menu, MenuItem, Button} from '@mui/material'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import MaximizeIcon from '@mui/icons-material/Maximize';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 
-const AddTodoModal = ({item, setData, data, setModalOpen}) => {
+
+
+const AddTodoModal = ({item, setData, data, handleModalClose}) => {
   const [newTodo, setNewTodo] = useState({})
 
 
@@ -12,45 +17,61 @@ const AddTodoModal = ({item, setData, data, setModalOpen}) => {
       const handleSubmit = () => {
         let updatedArray = data
         updatedArray.push(newTodo)
-        setModalOpen(false)
+        handleModalClose()
       }
 
   return (
     <Box sx={{backgroundColor: '#171717', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100vw',top: '5vh', height: '95vh',  position: 'absolute'}}>
+
+    <MaximizeIcon sx={{fontSize: '3rem', color: '#2d2f3b' }}/>
+
+
+      <Box sx={{display: 'flex', alignItems: 'center'}}> 
+
+      <ArrowBackIcon sx={{fontSize: '2rem', left: '1rem', position: 'absolute'}} onClick={handleModalClose}/>
+      
     <h1 className='modalTitle'>Add ToDo</h1>
 
-    <TextField fullWidth name="title" label='Title' defaultValue={`Title`} variant="filled" sx={{backgroundColor: '#2d2f3b', width: '95vw', color: 'white', mb: '1rem', input: {color: 'white'}}} onChange={onChange}  
+      </Box>
+
+    <TextField fullWidth name="title"  defaultValue={`New ToDo`} sx={{ color: 'white',  input: {color: 'white'}}} className='input' onChange={onChange}  
+       id="filled-hidden-label-normal"
      InputLabelProps={{
           style: { color: 'white' }
-        }}
-   
-          
-        
+        }}    
         />
     
     <FormControl sx={{width: '95vw'}} >
 
-    <Select sx={{backgroundColor: '#2d2f3b',mb: '1rem', color: 'white'}} label='User Id' onChange={onChange} value={newTodo.userId} name='userId'
+    <Select className='input' onChange={onChange} value={newTodo.userId} name='userId' defaultValue={1}
+    IconComponent={(props) => (
+      <ExpandMoreIcon {...props}  sx={{fontSize: '3rem', fill: 'white'}}/>
+    )}
     >
-      <MenuItem value={1}>1</MenuItem>
-      <MenuItem value={2}>2</MenuItem>
-      <MenuItem value={3}>3</MenuItem>
-      <MenuItem value={4}>4</MenuItem>
-      <MenuItem value={5}>5</MenuItem>
+      <MenuItem value={1}>User 1</MenuItem>
+      <MenuItem value={2}>User 2</MenuItem>
+      <MenuItem value={3}>User 3</MenuItem>
+      <MenuItem value={4}>User 4</MenuItem>
+      <MenuItem value={5}>User 5</MenuItem>
     </Select>
     </FormControl>
 
-    <FormControl sx={{width: '95vw'}} >         
-    <Select sx={{backgroundColor: '#2d2f3b',mb: '3rem', color: 'white'}} label='User Id'  value={newTodo.completed} name='completed' onChange={onChange} defaultValue={false} >
+    <FormControl sx={{width: '95vw'}} >
+
+    <Select className='input' value={newTodo.completed} name='completed' onChange={onChange} defaultValue={false}
+    IconComponent={(props) => (
+      <ExpandMoreIcon {...props}  sx={{fontSize: '3rem', fill: 'white'}}/>
+      )}    
+    >
       <MenuItem value={true}>Completed</MenuItem>
       <MenuItem value={false}>Not Completed</MenuItem>
     </Select>
     </FormControl>
    
-   {newTodo.userId ? (<Button onClick={handleSubmit} sx={{backgroundColor: '#77DD77', color: 'white', width: '40vw'}}>Finish</Button>) : (<Button sx={{backgroundColor: '#77DD77', color: 'white', width: '40vw'}} onClick={()=>{}}>Not allowed</Button>)}
+   <Button onClick={handleSubmit} sx={{backgroundColor: '#77DD77', mt: '3rem'}} className='button'>Finish</Button> 
   
     
-    <Button onClick={()=> setModalOpen(false)} sx={{color: 'white', width: '40vw'}}>Quit</Button>
+    <Button onClick={handleModalClose} className='button' sx={{opacity: '0.5'}}>Quit</Button>
     </Box>
   )
 }

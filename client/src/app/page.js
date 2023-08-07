@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import {Box, TextField, Grid} from '@mui/material'
+import {Box, TextField, Grid, Slide} from '@mui/material'
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchIcon from '@mui/icons-material/Search';
 import TodoItem from './components/TodoItem'
@@ -20,12 +20,19 @@ export default function Home() {
   const [anchorEl, setAnchorEl] = useState(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [originalData, setOriginalData] = useState([])
+  const [modalClass, setModalClass] = useState('slideUp')
 
   const open = Boolean(anchorEl);
 
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleModalClose = () => {
+    setModalClass('slideDown')
+   setTimeout(() => {setModalOpen(false), setModalClass('slideUp')}, 300 )
+  }
+
+  
   const onChange = (event) => {
     setSearchQuery(event.target.value)
   }
@@ -89,7 +96,7 @@ useEffect(()=> {
             })}
         </Grid>
         </> : <>
-        <Grid>
+        <Grid sx={{overflow: 'scroll', overflowY: 'scroll', height: '70vh'}}>
           { data.length && data.map((todo)=>{
             if(!todo.completed) return (
             <Grid item key={todo.title}>
@@ -106,9 +113,12 @@ useEffect(()=> {
       
       <Modal 
       open={modalOpen}
-        onClose={()=> setModalOpen(false)}>
-          <AddTodoModal data={data} setData={setData} setModalOpen={setModalOpen}/>
+      onClose={handleModalClose}
+        className={modalClass}>
+        <AddTodoModal data={data} setData={setData} handleModalClose={handleModalClose}/>
+
       </Modal>
+
             
     </Box>
   )

@@ -8,8 +8,8 @@ const Header = ({setViewingCompleted, viewingComplete}) => {
   return (
     <Box className='Header'>
         <Box  sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-            <h1>ToDo's</h1>
-            <MoreHorizIcon sx={{fontSize: '3rem'}}/>
+            <h1 style={{marginLeft: '1rem'}}>ToDo's</h1>
+            <MoreHorizIcon sx={{fontSize: '3rem', mr: '1rem'}}/>
         </Box>
         <Box sx={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
 
