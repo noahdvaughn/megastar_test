@@ -23,14 +23,14 @@ const AddTodoModal = ({item, setData, data, handleModalClose}) => {
   return (
     <Box sx={{backgroundColor: '#171717', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100vw',top: '5vh', height: '95vh',  position: 'absolute'}}>
 
-    <MaximizeIcon sx={{fontSize: '3rem', color: '#2d2f3b' }}/>
+    <MaximizeIcon sx={{ fontSize: '3rem',color: '#2d2f3b', height:'3rem' }}/>
 
 
-      <Box sx={{display: 'flex', alignItems: 'center'}}> 
+      <Box sx={{display: 'flex', alignItems: 'center', height: '6rem', mb: '1rem', mt: '-2rem'}}> 
 
       <ArrowBackIcon sx={{fontSize: '2rem', left: '1rem', position: 'absolute'}} onClick={handleModalClose}/>
       
-    <h1 className='modalTitle'>Add ToDo</h1>
+      <h1 className='modalTitle'>Add ToDo</h1>
 
       </Box>
 
@@ -47,6 +47,15 @@ const AddTodoModal = ({item, setData, data, handleModalClose}) => {
     IconComponent={(props) => (
       <ExpandMoreIcon {...props}  sx={{fontSize: '3rem', fill: 'white'}}/>
     )}
+    inputProps={{
+      MenuProps: {
+          MenuListProps: {
+              sx: {
+                  backgroundColor: 'black', color: 'white'
+              }
+          }
+      }
+  }}
     >
       <MenuItem value={1}>User 1</MenuItem>
       <MenuItem value={2}>User 2</MenuItem>
@@ -62,13 +71,22 @@ const AddTodoModal = ({item, setData, data, handleModalClose}) => {
     IconComponent={(props) => (
       <ExpandMoreIcon {...props}  sx={{fontSize: '3rem', fill: 'white'}}/>
       )}    
+      inputProps={{
+        MenuProps: {
+            MenuListProps: {
+                sx: {
+                    backgroundColor: 'black', color: 'white'
+                }
+            }
+        }
+    }}
     >
       <MenuItem value={true}>Completed</MenuItem>
       <MenuItem value={false}>Not Completed</MenuItem>
     </Select>
     </FormControl>
    
-   <Button onClick={handleSubmit} sx={{backgroundColor: '#77DD77', mt: '3rem'}} className='button'>Finish</Button> 
+   <Button onClick={handleSubmit} sx={{backgroundColor: '#77DD77', mt: '2rem'}} className='button'>Finish</Button> 
   
     
     <Button onClick={handleModalClose} className='button' sx={{opacity: '0.5'}}>Quit</Button>

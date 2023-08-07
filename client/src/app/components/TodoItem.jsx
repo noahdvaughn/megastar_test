@@ -67,9 +67,11 @@ const handleSubmit = (id) => {
   
   return (
 
-    <Box className='todoItem' sx={{display: 'flex', justifyContent: 'space-between', m:'1rem', p: '1rem', backgroundColor: '#1f222e', borderRadius: '1rem', alignItems: 'center'}}>
-        <Box sx={{display: 'flex'}}>
-        {item.completed ? <CheckCircleIcon sx={{color: '#77DD77', fontSize: '3rem'}}/> : <CircleIcon sx={{fontSize: '3rem', color: '#2b2f3d'}} className='circle'/>}
+    <Box className='todoItem' sx={{display: 'flex', justifyContent: 'space-between', m:'1rem', mt: '0', p: '1rem', backgroundColor: '#1f222e', borderRadius: '1rem', alignItems: 'center'}}>
+        <Box sx={{display: 'flex', alignItems: 'center'}}>
+        {item.completed ? 
+        <CheckCircleIcon sx={{color: '#77DD77', fontSize: '4rem', paddingRight: '0.5rem'}}/> 
+        : <CircleIcon sx={{fontSize: '4rem', fontSize: '4rem', color: '#2b2f3d', paddingRight: '0.5rem'}} className='circle'/>}
         <Box sx={{textAlign: 'left'}}>
         <h4>{item.title}</h4>
         <h5 className='userLabel'>User : {item.userId}</h5>
@@ -106,13 +108,12 @@ const handleSubmit = (id) => {
         open={modalOpen}
         onClose={handleModalClose}
         className={modalClass}
-
         >
           <Box sx={{backgroundColor: '#171717', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100vw',top: '5vh', height: '95vh', position: 'absolute'}}>
 
-            <MaximizeIcon sx={{fontSize: '3rem', color: '#2d2f3b' }}/>
+            <MaximizeIcon sx={{fontSize: '3rem', color: '#2d2f3b', height:'3rem' }}/>
 
-            <Box sx={{display: 'flex', alignItems: 'center'}}>
+            <Box sx={{display: 'flex', alignItems: 'center', height: '6rem', mb: '1rem', mt: '-2rem'}}>
 
             <ArrowBackIcon sx={{fontSize: '2rem', left: '1rem', position: 'absolute'}} onClick={handleModalClose}/>
             <h1 className='modalTitle'>Edit ToDo</h1>
@@ -127,6 +128,15 @@ const handleSubmit = (id) => {
            IconComponent={(props) => (
             <ExpandMoreIcon {...props}  sx={{fontSize: '3rem', fill: 'white'}}/>
           )}
+          inputProps={{
+            MenuProps: {
+                MenuListProps: {
+                    sx: {
+                        backgroundColor: 'black', color: 'white'
+                    }
+                }
+            }
+        }}
           >
             <MenuItem value={1}>User 1</MenuItem>
             <MenuItem value={2}>User 2</MenuItem>
@@ -137,10 +147,19 @@ const handleSubmit = (id) => {
           </FormControl>
 
           <FormControl sx={{width: '95vw'}} >         
-          <Select className='input' label='User Id'  value={editedTodo.completed} name='completed' onChange={onChange} 
+          <Select className='input' value={editedTodo.completed} name='completed' onChange={onChange} 
            IconComponent={(props) => (
             <ExpandMoreIcon {...props}  sx={{fontSize: '3rem', fill: 'white'}}/>
           )}
+          inputProps={{
+            MenuProps: {
+                MenuListProps: {
+                    sx: {
+                        backgroundColor: 'black', color: 'white'
+                    }
+                }
+            }
+        }}
           >
             <MenuItem value={true}>Completed</MenuItem>
             <MenuItem value={false}>Not Completed</MenuItem>
@@ -148,7 +167,7 @@ const handleSubmit = (id) => {
           </FormControl>
          
         
-          <Button sx={{backgroundColor: '#77DD77', mt: '3rem'}} className='button' onClick={()=>handleSubmit(item.id)}>Finish</Button>
+          <Button sx={{backgroundColor: '#77DD77', mt: '2rem'}} className='button' onClick={()=>handleSubmit(item.id)}>Finish</Button>
           <Button className='button' sx={{opacity: '0.5'}} onClick={handleModalClose}>Quit</Button>
           </Box>
 

@@ -9,6 +9,8 @@ import Header from './components/Header';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import Modal from '@mui/material/Modal';
 import AddTodoModal from './components/AddTodoModal';
+import HorizontalRuleIcon from '@mui/icons-material/HorizontalRule';
+
 
 
 
@@ -68,11 +70,12 @@ useEffect(()=> {
   return (
     <Box sx={{textAlign: 'center', height: '100vh', overflow: 'hidden'}}>
       <Header setViewingCompleted={setViewingCompleted} viewingComplete={viewingCompleted}/>
+        <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
 
-      <Box sx={{overflowY: 'scroll'}}>
         <TextField variant='outlined' label="Search Todo's" sx={{background: '#1f222e', width: '90vw', borderRadius: '1rem', marginTop: '1rem', input: {color: 'white'} }}
         onChange={onChange}
         onSubmit={searchFilter}
+        className='search'
         InputProps={{
           endAdornment: <InputAdornment><SearchIcon sx={{color: 'white'}}/></InputAdornment>
         }}
@@ -85,6 +88,12 @@ useEffect(()=> {
           }
         }}
         />
+        
+        <Box className='line'></Box>
+        </Box>
+
+        <Box sx={{overflowY: 'scroll'}}>
+
         {viewingCompleted ? <>
         <Grid sx={{overflow: 'scroll', overflowY: 'scroll', height: '70vh'}}>
         { data.length && data.map((todo)=>{
